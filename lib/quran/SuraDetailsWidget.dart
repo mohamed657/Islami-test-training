@@ -54,7 +54,6 @@ class _SuraDetailsWidgetState extends State<SuraDetailsWidget> {
     String filleName = 'assets/filles/${index + 1}.txt';
     String fileContent = await rootBundle.loadString(filleName);
     List<String> Verses = fileContent.split('\n');
-    print(ayat);
     ayat = Verses;
     setState(() {});
   }
