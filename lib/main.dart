@@ -18,7 +18,7 @@ class MyThemeData {
           centerTitle: true,
           iconTheme: IconThemeData(color: Colors.black)),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          selectedItemColor: Colors.black, unselectedItemColor: Colors.black));
+          selectedItemColor: Colors.black, unselectedItemColor: Colors.white));
   static final ThemeData DarkTheme = ThemeData(
       primaryColor: MyThemeData.primaryColor,
       scaffoldBackgroundColor: Colors.transparent,
@@ -29,7 +29,7 @@ class MyThemeData {
         centerTitle: true,
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          selectedItemColor: Colors.black, unselectedItemColor: Colors.black));
+          selectedItemColor: Colors.black, unselectedItemColor: Colors.white));
 }
 
 class MyApp extends StatelessWidget {
