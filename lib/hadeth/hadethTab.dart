@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled/Provider/AppConfigProvider.dart';
 import '../main.dart';
 import 'HadethNameWidget.dart';
 
@@ -12,6 +14,7 @@ class hadethTab extends StatefulWidget {
 class _hadethTabState extends State<hadethTab> {
   @override
   Widget build(BuildContext context) {
+    var provider=Provider.of<AppConfigProvider>(context);
     if (allHadethItems.isEmpty) loadHadethFile();
     return Column(
       children: [
@@ -22,16 +25,20 @@ class _hadethTabState extends State<hadethTab> {
           children: [
             Divider(
               height: 1,
-              color: MyThemeData.primaryColor,
+              color: provider.isDarkMode()?
+              MyThemeData.AccentColorDark
+              : MyThemeData.primaryColor,
               thickness: 1,
             ),
             Text(
-              'اسم الحديث ',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              AppLocalizations.of(context)!.hadethname,
+              style: Theme.of(context).primaryTextTheme.subtitle1
             ),
             Divider(
               height: 1,
-              color: MyThemeData.primaryColor,
+              color: provider.isDarkMode()?
+              MyThemeData.AccentColorDark:
+              MyThemeData.primaryColor,
               thickness: 1,
             ),
           ],

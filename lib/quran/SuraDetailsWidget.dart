@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled/Provider/AppConfigProvider.dart';
+import 'package:untitled/main.dart';
 import 'package:untitled/quran/VersesWidget.dart';
 
 class SuraDetailsWidget extends StatefulWidget {
@@ -14,11 +17,14 @@ class _SuraDetailsWidgetState extends State<SuraDetailsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var provider =Provider.of<AppConfigProvider>(context);
     var args =
         ModalRoute.of(context)!.settings.arguments as SuraDetailsArguments;
     if (ayat.isEmpty) readSura(args.index);
     return Stack(children: [
       Image.asset(
+        provider.isDarkMode()?
+        'assets/image/main_backgraonddark.png':
         'assets/image/main_backgraond.png',
         width: double.infinity,
         fit: BoxFit.fill,
@@ -31,7 +37,11 @@ class _SuraDetailsWidgetState extends State<SuraDetailsWidget> {
             margin: EdgeInsets.symmetric(horizontal: 24, vertical: 48),
             padding: EdgeInsets.all(8.0),
             decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(24)),
+                color:provider.isDarkMode()?
+                MyThemeData.primaryColorDark:
+                Colors.white,
+
+                borderRadius: BorderRadius.circular(24)),
             child: ayat.isEmpty
                 ? Center(child: CircularProgressIndicator())
                 : ListView.separated(

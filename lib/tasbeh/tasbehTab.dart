@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled/Provider/AppConfigProvider.dart';
 import 'package:untitled/main.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class tasbehTab extends StatefulWidget {
   @override
@@ -22,6 +26,7 @@ class _tasbehTabState extends State<tasbehTab> {
 
   @override
   Widget build(BuildContext context) {
+    var provider =Provider.of<AppConfigProvider>(context);
     return Center(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -31,7 +36,12 @@ class _tasbehTabState extends State<tasbehTab> {
             children: [
               Container(
                   margin: EdgeInsets.only(left: 50),
-                  child: Image.asset('assets/image/headofseb7a.png')),
+                  child: Image.asset(
+                    provider.isDarkMode()?
+                      'assets/image/headofseb7a_dark.png':
+                      'assets/image/headofseb7a.png'
+                  )
+              ),
               Container(
                   margin: EdgeInsets.only(top: 78),
                   child: Transform.rotate(
@@ -42,7 +52,13 @@ class _tasbehTabState extends State<tasbehTab> {
                             borderRadius: BorderRadius.circular(120),
                             splashColor: Colors.transparent,
                             child:
-                                Image.asset('assets/image/bodyofseb7a.png'))),
+                                Image.asset(
+                                  provider.isDarkMode()?
+                                  'assets/image/bodyofseb7a_dark.png':
+                                  'assets/image/bodyofseb7a.png'
+                                )
+                        )
+                    ),
                   ))
             ],
           ),
@@ -50,27 +66,36 @@ class _tasbehTabState extends State<tasbehTab> {
             height: 30,
           ),
           Text(
-            'عدد التسبيحات ',
-            style: TextStyle(
-              fontSize: 25,
-            ),
+            AppLocalizations.of(context)!.tasbehnumber
+          ,
+            style:Theme.of(context).primaryTextTheme.headline1
           ),
           SizedBox(
             height: 30,
           ),
           Container(
             decoration: BoxDecoration(
-                color: Color(0xFFC7B295),
+                color: provider.isDarkMode()?
+                MyThemeData.primaryColorDark:
+                Color(0xFFC7B295),
                 borderRadius: BorderRadius.circular(20)),
             padding: EdgeInsets.all(20),
-            child: Text('$Number_Tasbeh'),
+            child: Text('$Number_Tasbeh',
+            style: TextStyle(
+              color: provider.isDarkMode()?
+                  Colors.white:
+                  Colors.black
+            ),
+            ),
           ),
           SizedBox(
             height: 20,
           ),
           Container(
             decoration: BoxDecoration(
-                color: MyThemeData.primaryColor,
+                color: provider.isDarkMode()?
+                MyThemeData.AccentColorDark:
+                MyThemeData.primaryColor,
                 borderRadius: BorderRadius.circular(20)),
             padding: EdgeInsets.all(5),
             child: Text(
@@ -78,7 +103,10 @@ class _tasbehTabState extends State<tasbehTab> {
               style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white),
+                  color:provider.isDarkMode()?
+              MyThemeData.primaryColorDark:
+                      Colors.white
+              ),
               textAlign: TextAlign.center,
             ),
           ),
@@ -88,16 +116,16 @@ class _tasbehTabState extends State<tasbehTab> {
   }
 
   void onPressed_tasbeh() {
-    if (Number_Tasbeh <= 33) {
-      Number_Tasbeh++;
-    }
-    if (Number_Tasbeh == 33 && index <= 3) {
-      Number_Tasbeh = 0;
+    Number_Tasbeh++;
+    if (Number_Tasbeh % 33==0&&index<=3) {
+
       index++;
+      if (index == 3) {
+        index = 0;
+      }
     }
-    if (index == 3) {
-      index = 0;
-    }
+
+
     rotateValue += 2;
     tasbeh_String[index];
     setState(() {});

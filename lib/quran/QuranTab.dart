@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled/Provider/AppConfigProvider.dart';
 import 'package:untitled/main.dart';
 import 'package:untitled/quran/SuraName_Widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class QuranTab extends StatelessWidget {
   List<String> names = [
@@ -122,6 +126,7 @@ class QuranTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var provider =Provider.of<AppConfigProvider>(context);
     return Column(
       children: [
         Expanded(
@@ -135,16 +140,18 @@ class QuranTab extends StatelessWidget {
           children: [
             Divider(
               height: 1,
-              color: MyThemeData.primaryColor,
+              color: provider.isDarkMode()?MyThemeData.AccentColorDark
+              :MyThemeData.primaryColor,
               thickness: 1,
             ),
             Text(
-              'اسم السورة',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              AppLocalizations.of(context)!.suraname,
+              style:Theme.of(context).primaryTextTheme.subtitle1
             ),
             Divider(
               height: 1,
-              color: MyThemeData.primaryColor,
+              color: provider.isDarkMode()?MyThemeData.AccentColorDark
+              :MyThemeData.primaryColor,
               thickness: 1,
             ),
           ],
@@ -158,7 +165,8 @@ class QuranTab extends StatelessWidget {
               separatorBuilder: (buildContext, index) {
                 return Container(
                   height: 1,
-                  color: Theme.of(context).primaryColor,
+                  color: provider.isDarkMode()?MyThemeData.AccentColorDark
+                      :MyThemeData.primaryColor,
                   margin: EdgeInsets.symmetric(horizontal: 24),
                 );
               },

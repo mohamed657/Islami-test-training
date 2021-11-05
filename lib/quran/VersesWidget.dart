@@ -12,7 +12,7 @@ class VersesWidget extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 8),
       child: Text(
         Name + '{${index + 1}}',
-        style: TextStyle(fontSize: 20),
+        style: Theme.of(context).primaryTextTheme.bodyText1,
         textAlign: TextAlign.center,
         textDirection: TextDirection.rtl,
       ),
